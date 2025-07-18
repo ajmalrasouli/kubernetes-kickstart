@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-config
+  namespace: kube-demo-app
+data:
+  APP_TITLE: "My K8s Guestbook"

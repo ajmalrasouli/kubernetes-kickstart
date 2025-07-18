@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-app
+  namespace: kube-demo-app
+  labels:
+    app: frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          # NOTE: You need to replace this with your own public image
+          # Or use a pre-built one for the demo.
+          image: "ajmalrasouli/kube-demo-app:v2"
+          ports:
+            - containerPort: 5000
+          env:
+            - name: APP_TITLE
+              valueFrom:
+                configMapKeyRef:
+                  name: frontend-config
+                  key: APP_TITLE
+            - name: POSTGRES_HOST
+              value: "db-service"
+            - name: POSTGRES_DB
+              value: "guestbook"
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: POSTGRES_PASSWORD

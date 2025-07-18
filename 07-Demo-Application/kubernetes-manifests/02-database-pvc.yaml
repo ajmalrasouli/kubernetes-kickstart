@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: db-pvc
+  namespace: kube-demo-app
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: standard # This uses Minikube's default StorageClass
+  resources:
+    requests:
+      storage: 1Gi

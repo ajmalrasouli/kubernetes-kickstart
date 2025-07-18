@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ page_title }}</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f0f0f0; color: #333; }
+        .container { max-width: 800px; margin: 40px auto; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1, h2 { color: #005f73; }
+        form { margin-top: 20px; }
+        input[type="text"], textarea { width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ddd; }
+        input[type="submit"] { background-color: #008cba; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; }
+        .entry { border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px; }
+        .entry p { margin: 0; }
+        .entry small { color: #777; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ page_title }}</h1>
+        <p>A demo application running on Kubernetes!</p>
+
+        <h2>Leave a Message</h2>
+        <form action="/add" method="post">
+            <input type="text" name="username" placeholder="Your Name" required><br>
+            <textarea name="message" placeholder="Your Message" required></textarea><br>
+            <input type="submit" value="Submit">
+        </form>
+
+        <h2>Messages</h2>
+        {% for entry in entries %}
+            <div class="entry">
+                <p><b>{{ entry[1] }}:</b> {{ entry[2] }}</p>
+                <small>Posted on: {{ entry[3] }}</small>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
